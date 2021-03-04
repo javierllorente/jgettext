@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,6 +60,7 @@ public class POParser implements TranslationParser {
             boolean msgCtxtFound = false;
             boolean msgIdFound = false;
             boolean msgIdPluralFound = false;
+            boolean msgStrPluralFound = false;
             boolean msgStrFound = false;
             boolean fuzzyFound = false;
             boolean commentFound = false;
@@ -107,9 +108,9 @@ public class POParser implements TranslationParser {
                 } else if (line.startsWith("msgstr[")) {
                     type = Type.MSGSTR_PLURAL;
                     msgStrFound = true;                    
-                    if (msgIdPluralFound) {
+                    if (!msgStrPluralFound) {
                         msgStrElement = new POElement();
-                        msgIdPluralFound = false;
+                        msgStrPluralFound = true;
                     }
                 } else if (line.startsWith("msgstr")) {
                     type = Type.MSGSTR;
@@ -179,6 +180,7 @@ public class POParser implements TranslationParser {
                             }
                             if (msgIdPluralFound) {
                                 entry.setPlural(true);
+                                msgIdPluralFound = false;
                             }                            
                             
                             cleanFirstLineBreak(msgIdElement);
@@ -192,7 +194,7 @@ public class POParser implements TranslationParser {
                             
                             msgIdFound = false;
                             msgStrFound = false;
-                            msgIdPluralFound = false;
+                            msgStrPluralFound = false;
                         } else if (fuzzyFound) {
                             TranslationEntry entry = new POEntry(true);
                             entry.setFuzzy(fuzzyEntries);
