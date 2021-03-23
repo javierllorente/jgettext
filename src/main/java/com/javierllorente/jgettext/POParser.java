@@ -55,6 +55,7 @@ public class POParser implements TranslationParser {
             List<String> comments = null;
             List<String> msgCtxt = null;
             TranslationElement msgIdElement = null;
+            TranslationElement msgIdPluralElement = null;
             TranslationElement msgStrElement = null;
             List<String> fuzzyEntries = null;
             boolean msgCtxtFound = false;
@@ -98,8 +99,7 @@ public class POParser implements TranslationParser {
                 } else if (line.startsWith("msgid_plural")) {
                     type = Type.MSGID_PLURAL;
                     msgIdPluralFound = true;
-//                    msgIdElement = new POElement();
-                    
+                    msgIdPluralElement = new POElement();                    
                 } else if (line.startsWith("msgid")) {
                     type = Type.MSGID;
                     msgIdFound = true;
@@ -136,7 +136,7 @@ public class POParser implements TranslationParser {
                         addMsgLine(line, msgIdElement, type);
                         break;
                     case MSGID_PLURAL:
-                        addMsgLine(line, msgIdElement, type);
+                        addMsgLine(line, msgIdPluralElement, type);
                         break;
                     case MSGSTR_PLURAL:                        
                         addMsgLine(line, msgStrElement, type);                        
@@ -187,6 +187,12 @@ public class POParser implements TranslationParser {
                             cleanFirstLineBreak(msgStrElement);
                             cleanLastLineBreak(msgIdElement);
                             cleanLastLineBreak(msgStrElement);
+                            
+                            if (entry.isPlural()) {
+                                cleanFirstLineBreak(msgIdPluralElement);
+                                cleanLastLineBreak(msgIdPluralElement);
+                                entry.setMsgIdPluralElement(msgIdPluralElement);
+                            }
                             
                             entry.setMsgIdElement(msgIdElement);
                             entry.setMsgStrElement(msgStrElement);                            
@@ -265,9 +271,9 @@ public class POParser implements TranslationParser {
     }
     
     private void cleanLastLineBreak(TranslationElement element) {
-        if (element.get().size() > 0) {
-            element.get().set(element.get().size() - 1, element.get().get(
-                    element.get().size() - 1).replaceFirst("\n$", ""));
+            if (element.get().size() > 0) {
+                element.get().set(element.get().size() - 1, element.get().get(
+                        element.get().size() - 1).replaceFirst("\n$", ""));
+            }
         }
-    }    
-}
+    }

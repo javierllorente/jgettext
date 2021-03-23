@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,8 @@ public class POEntry implements TranslationEntry {
     private List<String> comments;
     private List<String> msgCtxt;
     private TranslationElement msgIdElement;
-    private TranslationElement msgStrElement;
+    private TranslationElement msgIdPluralElement;
+    private TranslationElement msgStrElement;  
     private List<String> fuzzyEntries;
     private boolean plural;
     private enum MsgType {
@@ -105,6 +106,16 @@ public class POEntry implements TranslationEntry {
     public void addMsgIdEntry(String msgIdEntry) {
         msgIdElement.add(msgIdEntry);
     }
+
+    @Override
+    public TranslationElement getMsgIdPluralElement() {
+        return msgIdPluralElement;
+    }
+
+    @Override
+    public void setMsgIdPluralElement(TranslationElement msgIdPluralElement) {
+        this.msgIdPluralElement = msgIdPluralElement;
+    }    
     
     @Override
     public TranslationElement getMsgStrElement() {
@@ -168,8 +179,12 @@ public class POEntry implements TranslationEntry {
             appendMsg(sb, msgCtxt, MsgType.MSGCTXT);
         }
         
-        if (msgIdElement != null){
+        if (msgIdElement != null) {
             sb.append(msgIdElement.toString());
+        }
+        
+        if (msgIdPluralElement != null) {
+            sb.append(msgIdPluralElement.toString());
         }
         
         if (msgStrElement != null) {

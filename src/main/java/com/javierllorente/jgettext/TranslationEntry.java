@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,10 @@ public interface TranslationEntry {
     public void setMsgId(List<String> msgId);
 
     public void addMsgIdEntry(String msgIdEntry);
+    
+    public TranslationElement getMsgIdPluralElement();
+
+    public void setMsgIdPluralElement(TranslationElement msgIdPluralElement);    
 
     public TranslationElement getMsgStrElement();
 
