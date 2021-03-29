@@ -46,8 +46,12 @@ public interface TranslationEntry {
     
     public TranslationElement getMsgIdPluralElement();
 
-    public void setMsgIdPluralElement(TranslationElement msgIdPluralElement);    
+    public void setMsgIdPluralElement(TranslationElement msgIdPluralElement);
 
+    public List<TranslationElement> getMsgStrElements();
+
+    public void setMsgStrElements(List<TranslationElement> elements);
+    
     public TranslationElement getMsgStrElement();
 
     public void setMsgStrElement(TranslationElement element);

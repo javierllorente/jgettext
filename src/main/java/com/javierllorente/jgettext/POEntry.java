@@ -28,6 +28,7 @@ public class POEntry implements TranslationEntry {
     private List<String> msgCtxt;
     private TranslationElement msgIdElement;
     private TranslationElement msgIdPluralElement;
+    private List<TranslationElement> msgStrElements;
     private TranslationElement msgStrElement;  
     private List<String> fuzzyEntries;
     private boolean plural;
@@ -116,6 +117,16 @@ public class POEntry implements TranslationEntry {
     public void setMsgIdPluralElement(TranslationElement msgIdPluralElement) {
         this.msgIdPluralElement = msgIdPluralElement;
     }    
+
+    @Override
+    public List<TranslationElement> getMsgStrElements() {
+        return msgStrElements;
+    }
+
+    @Override
+    public void setMsgStrElements(List<TranslationElement> msgStrElements) {
+        this.msgStrElements = msgStrElements;
+    }
     
     @Override
     public TranslationElement getMsgStrElement() {
@@ -185,6 +196,12 @@ public class POEntry implements TranslationEntry {
         
         if (msgIdPluralElement != null) {
             sb.append(msgIdPluralElement.toString());
+        }
+        
+        if (msgStrElements != null) {
+            for (TranslationElement element : msgStrElements) {
+                sb.append(element.toString());
+            }
         }
         
         if (msgStrElement != null) {
