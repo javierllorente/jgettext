@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,11 +68,10 @@ public class POElement implements TranslationElement {
         String str = "";
         String line;
         
-        for (int i=0; i<lines.size(); i++) {            
-            str += tags.get(i);
+        for (int i = 0; i < lines.size(); i++) {
             
-            if (!tags.get(i).isEmpty()) {
-                str += " ";
+            if (i == 0) {
+                str += tags.get(i) + " ";
             }
             
             line = lines.get(i);
