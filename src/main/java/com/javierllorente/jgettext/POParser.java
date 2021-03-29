@@ -56,12 +56,12 @@ public class POParser implements TranslationParser {
             List<String> msgCtxt = null;
             TranslationElement msgIdElement = null;
             TranslationElement msgIdPluralElement = null;
+            List<TranslationElement> msgStrElements = null;
             TranslationElement msgStrElement = null;
             List<String> fuzzyEntries = null;
             boolean msgCtxtFound = false;
             boolean msgIdFound = false;
             boolean msgIdPluralFound = false;
-            boolean msgStrPluralFound = false;
             boolean msgStrFound = false;
             boolean fuzzyFound = false;
             boolean commentFound = false;
@@ -99,19 +99,17 @@ public class POParser implements TranslationParser {
                 } else if (line.startsWith("msgid_plural")) {
                     type = Type.MSGID_PLURAL;
                     msgIdPluralFound = true;
-                    msgIdPluralElement = new POElement();                    
+                    msgIdPluralElement = new POElement();
+                    msgStrElements = new ArrayList<>();
                 } else if (line.startsWith("msgid")) {
                     type = Type.MSGID;
                     msgIdFound = true;
                     msgIdElement = new POElement();
-
                 } else if (line.startsWith("msgstr[")) {
                     type = Type.MSGSTR_PLURAL;
-                    msgStrFound = true;                    
-                    if (!msgStrPluralFound) {
-                        msgStrElement = new POElement();
-                        msgStrPluralFound = true;
-                    }
+                    msgStrFound = true;
+                    msgStrElement = new POElement();
+                    msgStrElements.add(msgStrElement);
                 } else if (line.startsWith("msgstr")) {
                     type = Type.MSGSTR;
                     msgStrFound = true;
@@ -139,7 +137,7 @@ public class POParser implements TranslationParser {
                         addMsgLine(line, msgIdPluralElement, type);
                         break;
                     case MSGSTR_PLURAL:                        
-                        addMsgLine(line, msgStrElement, type);                        
+                        addMsgLine(line, msgStrElement, type);                         
                         break;
                     case MSGSTR:
                         addMsgLine(line, msgStrElement, type);
@@ -183,24 +181,27 @@ public class POParser implements TranslationParser {
                                 msgIdPluralFound = false;
                             }                            
                             
-                            cleanFirstLineBreak(msgIdElement);
-                            cleanFirstLineBreak(msgStrElement);
-                            cleanLastLineBreak(msgIdElement);
-                            cleanLastLineBreak(msgStrElement);
+                            cleanFirstLineBreak(msgIdElement);                            
+                            cleanLastLineBreak(msgIdElement);                            
                             
                             if (entry.isPlural()) {
                                 cleanFirstLineBreak(msgIdPluralElement);
                                 cleanLastLineBreak(msgIdPluralElement);
                                 entry.setMsgIdPluralElement(msgIdPluralElement);
+                                for (TranslationElement element : msgStrElements) {
+                                    cleanLastLineBreak(element);
+                                }
+                                entry.setMsgStrElements(msgStrElements);
+                            } else {
+                                cleanFirstLineBreak(msgStrElement);
+                                cleanLastLineBreak(msgStrElement);
+                                entry.setMsgStrElement(msgStrElement);
                             }
                             
                             entry.setMsgIdElement(msgIdElement);
-                            entry.setMsgStrElement(msgStrElement);                            
-                            poFile.addEntry(entry);
-                            
+                            poFile.addEntry(entry);                            
                             msgIdFound = false;
                             msgStrFound = false;
-                            msgStrPluralFound = false;
                         } else if (fuzzyFound) {
                             TranslationEntry entry = new POEntry(true);
                             entry.setFuzzy(fuzzyEntries);
