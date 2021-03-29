@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -118,78 +118,81 @@ public class POFile implements TranslationFile {
         }
         fuzzyEntries.add(fuzzyEntry);
     }
+    
+    private void updateMsgStr(List<String> originalLines, List<String> revisedLines) {
+        
+      if (revisedLines.size() < originalLines.size()) {
 
-    @Override
-    public void updateEntry(int index, List<CharSequence> newLines) {
-
-        if (newLines.size() < entries.get(index).getMsgStr().size() - 1) {
-
-            for (int k = entries.get(index).getMsgStr().size() - 1; k > newLines.size(); k--) {
-                entries.get(index).getMsgStr().remove(k);
-                entries.get(index).getMsgStrElement().getTags().remove(k);
+            for (int k = originalLines.size() - 1; k > revisedLines.size(); k--) {
+                originalLines.remove(k);
             }
             
-            if ((entries.get(index).getMsgStr().size() == 2) 
-                    && (entries.get(index).getMsgStr().get(0).isEmpty())) {
-                
-                entries.get(index).getMsgStr().set(0, 
-                        entries.get(index).getMsgStr().get(1));
-                
-                entries.get(index).getMsgStr().remove(1);
-                entries.get(index).getMsgStrElement().getTags().remove(1);
+            if ((originalLines.size() == 2) && (originalLines.get(0).isEmpty())) {                
+                originalLines.set(0, originalLines.get(1));                
+                originalLines.remove(1);
             }
             
-        } else if ((newLines.size() != 1) && newLines.size() > entries.get(index).getMsgStr().size() - 1) {
+        } else if ((revisedLines.size() != 1) && revisedLines.size() > originalLines.size()) {
 
             String lineBreak = "\n";
             
-            if (entries.get(index).getMsgStr().size() == 1) {
-                entries.get(index).getMsgStr().set(0, "");
-            }
-
-            int lastPosition = entries.get(index).getMsgStr().size() - 1;
-            if (lastPosition != 0) {
-                entries.get(index).getMsgStr().set(lastPosition, 
-                        entries.get(index).getMsgStr().get(lastPosition) + lineBreak);
+            if (originalLines.size() == 1) {
+                originalLines.add(0, "");
             }
             
-            for (int i = entries.get(index).getMsgStr().size() - 1; i < newLines.size(); i++) {
-                if (i == newLines.size() - 1) {
+            for (int i = originalLines.size(); i < revisedLines.size(); i++) {
+                if (i == revisedLines.size() - 1) {
                     lineBreak = "";
-                }
-                
-                entries.get(index).getMsgStrElement().getTags().add("");
-                entries.get(index).addMsgStrEntry(
-                        newLines.get(i).toString() + lineBreak);
+                }                
+
+                originalLines.add(revisedLines.get(i) + lineBreak);
             }
             
         }
-        
+      
         String lineBreak = "\n";
-        int j = 1;        
-        if (newLines.size() == 1) {
+        int j = 1;
+        if ((revisedLines.size() == 1) 
+                || !(originalLines.size() == 2 
+                && originalLines.get(0).isEmpty())) {
             j = 0;
         }
-        
-        for (int i = 0; i < newLines.size(); i++) {
-            if (i == newLines.size() - 1) {
+
+        for (int i = 0; i < revisedLines.size(); i++, j++) {
+            
+            if (i == revisedLines.size() - 1) {
                 lineBreak = "";
             }
 
-            if ((newLines.size() == 1)
-                    || (j <= entries.get(index).getMsgStr().size() - 1)
-                    && !(newLines.get(i).toString() + lineBreak)
-                            .equals(entries.get(index).getMsgStr().get(j))) {
-                
-                if (j == 0 && entries.get(index).getMsgStr().size() == 1
-                        || j != 0 && entries.get(index).getMsgStr().size() > 1) {
-                    entries.get(index).getMsgStr().set(j,
-                            newLines.get(i).toString() + lineBreak);
+            if ((revisedLines.size() == 1)
+                    || (j <= originalLines.size() - 1) 
+                    && !(revisedLines.get(i) + lineBreak)
+                            .equals(originalLines.get(j))) {
+
+                if ((j == 0 && originalLines.size() == 1)
+                        || (j != 0 && originalLines.size() > 1)) {
+
+                    originalLines.set(j, revisedLines.get(i) + lineBreak);
                 }
             }
-
-            j++;
         }
+               
+    }    
+    
+    @Override
+    public void updateEntry(int index, List<TranslationElement> elements) {
+        
+        boolean plural = elements.size() > 1;
+        
+        if (plural) {
+            for (int i = 0; i < elements.size(); i++) {
+                updateMsgStr(entries.get(index).getMsgStrElements().get(i).get(), 
+                        elements.get(i).get());
+            }
+        } else {
+            updateMsgStr(entries.get(index).getMsgStrElement().get(), 
+                        elements.get(0).get());
+        }        
         
     }
     
