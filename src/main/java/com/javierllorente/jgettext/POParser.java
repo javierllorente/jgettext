@@ -250,10 +250,9 @@ public class POParser implements TranslationParser {
                 splitLine = split[1];
                 newLine = "\n";
             }
-            element.addTag(tag);
+            element.setTag(tag);
             element.add(splitLine + newLine);
         } else {
-            element.addTag("");
             element.add(line + "\n");
         }
 

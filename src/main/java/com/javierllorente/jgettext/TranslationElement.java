@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,9 +30,7 @@ public interface TranslationElement {
 
     void add(String line);
 
-    public List<String> getTags();
+    public String getTag();
 
-    void setTags(List<String> tag);
-
-    void addTag(String tag);
+    void setTag(String tag);
 }

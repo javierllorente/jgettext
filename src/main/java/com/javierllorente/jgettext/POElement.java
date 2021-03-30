@@ -26,11 +26,10 @@ import java.util.List;
 public class POElement implements TranslationElement {
 
     private List<String> lines;
-    private List<String> tags;
+    private String tag;
 
     public POElement() {
         lines = new ArrayList<>();
-        tags = new ArrayList<>();
     }
             
     @Override
@@ -49,18 +48,13 @@ public class POElement implements TranslationElement {
     }
 
     @Override
-    public List<String> getTags() {
-        return tags;
+    public String getTag() {
+        return tag;
     }
 
     @Override
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    @Override
-    public void addTag(String tag) {
-        tags.add(tag);
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     @Override
@@ -71,7 +65,7 @@ public class POElement implements TranslationElement {
         for (int i = 0; i < lines.size(); i++) {
             
             if (i == 0) {
-                str += tags.get(i) + " ";
+                str += tag + " ";
             }
             
             line = lines.get(i);
