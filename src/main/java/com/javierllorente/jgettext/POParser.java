@@ -189,6 +189,7 @@ public class POParser implements TranslationParser {
                                 cleanLastLineBreak(msgIdPluralElement);
                                 entry.setMsgIdPluralElement(msgIdPluralElement);
                                 for (TranslationElement element : msgStrElements) {
+                                    cleanFirstLineBreak(element);
                                     cleanLastLineBreak(element);
                                 }
                                 entry.setMsgStrElements(msgStrElements);
