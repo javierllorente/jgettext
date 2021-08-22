@@ -65,6 +65,7 @@ public class POParser implements TranslationParser {
             boolean msgStrFound = false;
             boolean obsoleteFound = false;
             boolean commentFound = false;
+            boolean fuzzy = false;
             
             boolean header = true;
             boolean endOfFile = false;
@@ -91,6 +92,9 @@ public class POParser implements TranslationParser {
                     if (!commentFound) {
                         comments = new ArrayList<>();
                         commentFound = true;
+                    }
+                    if (line.startsWith("#, fuzzy")) {
+                        fuzzy = true;
                     }
                 } else if (line.startsWith("msgctxt")) {
                     type = Type.MSGCTXT;
@@ -171,6 +175,10 @@ public class POParser implements TranslationParser {
                                 entry.setComments(comments); 
                                 commentFound = false;
                             }
+                            if (fuzzy) {
+                                entry.setFuzzy(true);
+                                fuzzy = false;
+                            }
                             if (msgCtxtFound) {
                                 cleanLastLineBreak(msgCtxt);
                                 entry.setMsgCtxt(msgCtxt);
@@ -211,6 +219,10 @@ public class POParser implements TranslationParser {
                             if (commentFound) {
                                 entry.setComments(comments); 
                                 commentFound = false;
+                            }
+                            if (fuzzy) {
+                                entry.setFuzzy(true);
+                                fuzzy = false;
                             }
                         }
                         break;

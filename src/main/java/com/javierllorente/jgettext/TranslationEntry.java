@@ -70,5 +70,9 @@ public interface TranslationEntry {
 
     public boolean isPlural();
 
-    public void setPlural(boolean plural);    
+    public void setPlural(boolean plural);
+    
+    public boolean isFuzzy();
+    
+    public  void setFuzzy(boolean fuzzy);
 }

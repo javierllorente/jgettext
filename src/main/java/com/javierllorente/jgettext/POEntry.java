@@ -32,6 +32,7 @@ public class POEntry implements TranslationEntry {
     private TranslationElement msgStrElement;  
     private List<String> obsoleteEntries;
     private boolean plural;
+    private boolean fuzzy;
     private enum MsgType {
         MSGCTXT,
         MSGID,
@@ -176,6 +177,16 @@ public class POEntry implements TranslationEntry {
     @Override
     public void setPlural(boolean plural) {
         this.plural = plural;
+    }
+
+    @Override
+    public boolean isFuzzy() {
+        return fuzzy;
+    }
+
+    @Override
+    public void setFuzzy(boolean fuzzy) {
+        this.fuzzy = fuzzy;
     }
 
     @Override
