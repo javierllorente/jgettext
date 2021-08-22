@@ -33,6 +33,7 @@ public class POEntry implements TranslationEntry {
     private List<String> obsoleteEntries;
     private boolean plural;
     private boolean fuzzy;
+    private static final String FUZZY_FLAG = "#, fuzzy";
     private enum MsgType {
         MSGCTXT,
         MSGID,
@@ -185,8 +186,28 @@ public class POEntry implements TranslationEntry {
     }
 
     @Override
-    public void setFuzzy(boolean fuzzy) {
+    public void setFuzzy(boolean fuzzy) {        
         this.fuzzy = fuzzy;
+    }
+    
+    @Override
+    public void addFuzzyFlag() {
+        if (!comments.contains(FUZZY_FLAG)) {
+            for (int i = 0; i < comments.size(); i++) {
+                if (comments.get(i).startsWith("msgid")) {
+                    comments.add(i, FUZZY_FLAG);
+                    fuzzy = true;
+                    break;
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void removeFuzzyFlag() {
+        comments.removeIf((String s) -> (s.startsWith(FUZZY_FLAG)
+                || s.startsWith("#| msgid")));
+        fuzzy = false;
     }
 
     @Override

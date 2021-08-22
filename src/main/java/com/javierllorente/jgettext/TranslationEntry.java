@@ -75,4 +75,8 @@ public interface TranslationEntry {
     public boolean isFuzzy();
     
     public  void setFuzzy(boolean fuzzy);
+    
+    public void addFuzzyFlag();
+    
+    public void removeFuzzyFlag();
 }
