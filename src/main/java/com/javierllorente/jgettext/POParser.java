@@ -36,7 +36,7 @@ public class POParser implements TranslationParser {
         MSGID_PLURAL,
         MSGSTR_PLURAL,
         MSGSTR,
-        FUZZY,
+        OBSOLETE,
         BLANK
     }
 
@@ -58,12 +58,12 @@ public class POParser implements TranslationParser {
             TranslationElement msgIdPluralElement = null;
             List<TranslationElement> msgStrElements = null;
             TranslationElement msgStrElement = null;
-            List<String> fuzzyEntries = null;
+            List<String> obsoleteEntries = null;
             boolean msgCtxtFound = false;
             boolean msgIdFound = false;
             boolean msgIdPluralFound = false;
             boolean msgStrFound = false;
-            boolean fuzzyFound = false;
+            boolean obsoleteFound = false;
             boolean commentFound = false;
             
             boolean header = true;
@@ -81,10 +81,10 @@ public class POParser implements TranslationParser {
                 
 //                System.out.println(line);
                 if (line.startsWith("#~")) {
-                    type = Type.FUZZY;
-                    if (!fuzzyFound) {
-                        fuzzyEntries = new ArrayList<>();
-                        fuzzyFound = true;
+                    type = Type.OBSOLETE;
+                    if (!obsoleteFound) {
+                        obsoleteEntries = new ArrayList<>();
+                        obsoleteFound = true;
                     }
                 } else if(line.matches("^#(\\s*|\\.|\\:|\\,).*$")) {
                     type = Type.COMMENT;
@@ -142,9 +142,9 @@ public class POParser implements TranslationParser {
                     case MSGSTR:
                         addMsgLine(line, msgStrElement, type);
                         break;
-                    case FUZZY:
-                        if (fuzzyFound) {
-                            fuzzyEntries.add(line);
+                    case OBSOLETE:
+                        if (obsoleteFound) {
+                            obsoleteEntries.add(line);
                         }
                         break;
                     case BLANK:
@@ -203,11 +203,11 @@ public class POParser implements TranslationParser {
                             poFile.addEntry(entry);                            
                             msgIdFound = false;
                             msgStrFound = false;
-                        } else if (fuzzyFound) {
+                        } else if (obsoleteFound) {
                             TranslationEntry entry = new POEntry(true);
-                            entry.setFuzzy(fuzzyEntries);
-                            poFile.addFuzzyEntry(entry);
-                            fuzzyFound = false;
+                            entry.setObsoleteEntries(obsoleteEntries);
+                            poFile.addObsoleteEntry(entry);
+                            obsoleteFound = false;
                             if (commentFound) {
                                 entry.setComments(comments); 
                                 commentFound = false;

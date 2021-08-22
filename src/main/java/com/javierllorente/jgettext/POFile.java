@@ -28,12 +28,12 @@ import java.util.List;
 public class POFile implements TranslationFile {
     List<TranslationEntry> header;
     List<TranslationEntry> entries;
-    List<TranslationEntry> fuzzyEntries;
+    List<TranslationEntry> obsoleteEntries;
 
     public POFile() {
         header = new ArrayList<>();
         entries = new ArrayList<>();
-        fuzzyEntries = null;
+        obsoleteEntries = null;
     }
 
     @Override
@@ -112,11 +112,11 @@ public class POFile implements TranslationFile {
     }
     
     @Override
-    public void addFuzzyEntry(TranslationEntry fuzzyEntry) {
-        if (fuzzyEntries == null) {
-            fuzzyEntries = new ArrayList<>();
+    public void addObsoleteEntry(TranslationEntry obsoleteEntry) {
+        if (obsoleteEntries == null) {
+            obsoleteEntries = new ArrayList<>();
         }
-        fuzzyEntries.add(fuzzyEntry);
+        obsoleteEntries.add(obsoleteEntry);
     }
     
     private void updateMsgStr(List<String> originalLines, List<String> revisedLines) {
@@ -210,8 +210,8 @@ public class POFile implements TranslationFile {
 
         str += entriesToString(entries);
 
-        if (fuzzyEntries != null) {
-            str += entriesToString(fuzzyEntries);
+        if (obsoleteEntries != null) {
+            str += entriesToString(obsoleteEntries);
         }
         str = str.replaceFirst("\n$", "");
 

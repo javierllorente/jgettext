@@ -62,11 +62,11 @@ public interface TranslationEntry {
 
     public void addMsgStrEntry(String msgStrEntry);
 
-    public List<String> getFuzzy();
+    public List<String> getObsoleteEntries();
 
-    public void setFuzzy(List<String> fuzzyEntries);
+    public void setObsoleteEntries(List<String> obsoleteEntries);
 
-    public void addFuzzyEntry(String fuzzyEntry);
+    public void addObsoleteEntry(String obsoleteEntry);
 
     public boolean isPlural();
 

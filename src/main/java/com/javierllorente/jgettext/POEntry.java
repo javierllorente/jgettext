@@ -30,7 +30,7 @@ public class POEntry implements TranslationEntry {
     private TranslationElement msgIdPluralElement;
     private List<TranslationElement> msgStrElements;
     private TranslationElement msgStrElement;  
-    private List<String> fuzzyEntries;
+    private List<String> obsoleteEntries;
     private boolean plural;
     private enum MsgType {
         MSGCTXT,
@@ -43,9 +43,9 @@ public class POEntry implements TranslationEntry {
         init();
     }
     
-    public POEntry(boolean fuzzy) {
-        if (fuzzy) {
-            fuzzyEntries = new ArrayList<>();
+    public POEntry(boolean obsolete) {
+        if (obsolete) {
+            obsoleteEntries = new ArrayList<>();
         } else {
             init();
         }
@@ -154,18 +154,18 @@ public class POEntry implements TranslationEntry {
     }
 
     @Override
-    public List<String> getFuzzy() {
-        return fuzzyEntries;
+    public List<String> getObsoleteEntries() {
+        return obsoleteEntries;
     }
 
     @Override
-    public void setFuzzy(List<String> fuzzyEntries) {
-        this.fuzzyEntries = fuzzyEntries;
+    public void setObsoleteEntries(List<String> obsoleteEntries) {
+        this.obsoleteEntries = obsoleteEntries;
     }
     
     @Override
-    public void addFuzzyEntry(String fuzzyEntry) {
-        fuzzyEntries.add(fuzzyEntry);
+    public void addObsoleteEntry(String obsoleteEntry) {
+        obsoleteEntries.add(obsoleteEntry);
     }
     
     @Override
@@ -208,8 +208,8 @@ public class POEntry implements TranslationEntry {
             sb.append(msgStrElement.toString());
         }
         
-        if (fuzzyEntries != null && !fuzzyEntries.isEmpty()) {
-            sb.append(String.join("\n", fuzzyEntries)).append("\n");
+        if (obsoleteEntries != null && !obsoleteEntries.isEmpty()) {
+            sb.append(String.join("\n", obsoleteEntries)).append("\n");
         }
         
         return sb.toString();

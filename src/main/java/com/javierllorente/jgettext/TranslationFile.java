@@ -44,7 +44,7 @@ public interface TranslationFile {
 
     public void addEntry(TranslationEntry entry);
 
-    public void addFuzzyEntry(TranslationEntry fuzzyEntry);
+    public void addObsoleteEntry(TranslationEntry obsoleteEntry);
    
     public void updateEntry(int index, List<TranslationElement> elements);
 }
