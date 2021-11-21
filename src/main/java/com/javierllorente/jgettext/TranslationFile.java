@@ -24,8 +24,6 @@ import java.util.List;
  */
 public interface TranslationFile {
 
-    public List<TranslationEntry> getHeader();
-
     public String getRevisionDate();
 
     public boolean setRevisionDate();

@@ -26,19 +26,14 @@ import java.util.List;
  * @author javier
  */
 public class POFile implements TranslationFile {
-    List<TranslationEntry> header;
-    List<TranslationEntry> entries;
-    List<TranslationEntry> obsoleteEntries;
+    private List<TranslationEntry> header;
+    private List<TranslationEntry> entries;
+    private List<TranslationEntry> obsoleteEntries;
 
     public POFile() {
         header = new ArrayList<>();
         entries = new ArrayList<>();
         obsoleteEntries = null;
-    }
-
-    @Override
-    public List<TranslationEntry> getHeader() {
-        return header;
     }
     
     private String getHeader(String key) {
