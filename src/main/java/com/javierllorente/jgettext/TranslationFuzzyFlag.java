@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,31 +16,17 @@
  */
 package com.javierllorente.jgettext;
 
-import java.util.List;
-
 /**
  *
  * @author javier
  */
-public interface TranslationEntry {
+public interface TranslationFuzzyFlag {
 
-    public TranslationElement getMsgIdElement();
+    public boolean isFuzzy();
 
-    public void setMsgIdElement(TranslationElement element);
+    public void setFuzzy(boolean fuzzy);
 
-    public List<String> getMsgId();
+    public void addFuzzyFlag();
 
-    public void setMsgId(List<String> msgId);
-
-    public void addMsgIdEntry(String msgIdEntry);
-    
-    public TranslationElement getMsgStrElement();
-
-    public void setMsgStrElement(TranslationElement element);
-
-    public List<String> getMsgStr();
-
-    public void setMsgStr(List<String> msgStr);
-
-    public void addMsgStrEntry(String msgStrEntry);
+    public void removeFuzzyFlag();
 }
