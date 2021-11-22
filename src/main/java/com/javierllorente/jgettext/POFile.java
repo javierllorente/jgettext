@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author javier
  */
-public class POFile implements TranslationFile {
+public class POFile implements POFileFormat {
     private List<TranslationEntry> header;
     private List<TranslationEntry> entries;
     private List<TranslationEntry> obsoleteEntries;
@@ -181,7 +181,7 @@ public class POFile implements TranslationFile {
         
         if (plural) {
             for (int i = 0; i < elements.size(); i++) {
-                updateMsgStr(entries.get(index).getMsgStrElements().get(i).get(), 
+                updateMsgStr(((POEntryFormat) entries.get(index)).getMsgStrElements().get(i).get(), 
                         elements.get(i).get());
             }
         } else {
