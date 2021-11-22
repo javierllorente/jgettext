@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2021 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,17 +16,13 @@
  */
 package com.javierllorente.jgettext;
 
-import java.util.List;
-
 /**
  *
  * @author javier
  */
-public interface TranslationFile {
+public interface TranslationAuthor {
 
-    public List<TranslationEntry> getEntries();
+    public String getTranslator();
 
-    public void addEntry(TranslationEntry entry);
-   
-    public void updateEntry(int index, List<TranslationElement> elements);
+    public boolean setTranslator(String name, String email);
 }
