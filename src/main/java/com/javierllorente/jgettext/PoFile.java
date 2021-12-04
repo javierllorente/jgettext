@@ -48,16 +48,15 @@ public class PoFile implements TranslationFile {
         return value;
     }
 
-    private boolean setHeader(String key, String value) {
+    private void setHeader(String key, String value) {
         for (TranslationEntry entry : header) {
             for (int i = 0; i < entry.getMsgStr().size(); i++) {
                 if (entry.getMsgStr().get(i).contains(key)) {
                     entry.getMsgStr().set(i, key + ": " + value + "\\n\n");
-                    return true;
+                    return;
                 }
             }
         }
-        return false;
     }
     
     @Override
@@ -66,9 +65,9 @@ public class PoFile implements TranslationFile {
     }
     
     @Override
-    public boolean setRevisionDate() {
+    public void setRevisionDate() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mmZ");
-        return setHeader("PO-Revision-Date", ZonedDateTime.now().format(dateTimeFormatter));
+        setHeader("PO-Revision-Date", ZonedDateTime.now().format(dateTimeFormatter));
     }
     
     @Override
@@ -77,8 +76,8 @@ public class PoFile implements TranslationFile {
     }
     
     @Override
-    public boolean setTranslator(String name, String email) {
-        return setHeader("Last-Translator", name + " <" + email + ">");
+    public void setTranslator(String name, String email) {
+        setHeader("Last-Translator", name + " <" + email + ">");
     }
     
     @Override
@@ -87,8 +86,8 @@ public class PoFile implements TranslationFile {
     }
     
     @Override
-    public boolean setGenerator(String generator) {
-        return setHeader("X-Generator", generator);
+    public void setGenerator(String generator) {
+        setHeader("X-Generator", generator);
     }
     
     @Override

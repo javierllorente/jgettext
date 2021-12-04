@@ -28,24 +28,21 @@ public interface TranslationFile {
         return "";
     }
 
-    default boolean setRevisionDate() {
-        return true;
+    default void setRevisionDate() {
     }
 
     default String getTranslator() {
         return "";
     }
 
-    default boolean setTranslator(String name, String email) {
-        return true;
+    default void setTranslator(String name, String email) {
     }
 
     default String getGenerator() {
         return "";
     }
 
-    default boolean setGenerator(String generator) {
-        return true;
+    default void setGenerator(String generator) {
     }
 
     default void addHeader(TranslationEntry headerEntry) {
