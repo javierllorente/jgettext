@@ -24,9 +24,39 @@ import java.util.List;
  */
 public interface TranslationFile {
 
+    default String getRevisionDate() {
+        return "";
+    }
+
+    default boolean setRevisionDate() {
+        return true;
+    }
+
+    default String getTranslator() {
+        return "";
+    }
+
+    default boolean setTranslator(String name, String email) {
+        return true;
+    }
+
+    default String getGenerator() {
+        return "";
+    }
+
+    default boolean setGenerator(String generator) {
+        return true;
+    }
+
+    default void addHeader(TranslationEntry headerEntry) {
+    }
+
     public List<TranslationEntry> getEntries();
 
     public void addEntry(TranslationEntry entry);
+
+    default void addObsoleteEntry(TranslationEntry obsoleteEntry) {
+    }
    
     public void updateEntry(int index, List<TranslationElement> elements);
 }

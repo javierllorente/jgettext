@@ -24,6 +24,23 @@ import java.util.List;
  */
 public interface TranslationEntry {
 
+    default public List<String> getComments() {
+        return null;
+    }
+
+    default public void setComments(List<String> comments) {
+    }
+
+    default public void addComment(String comment) {
+    }
+
+    default public List<String> getMsgCtxt() {
+        return null;
+    }
+
+    default public void setMsgCtxt(List<String> msgCtxt) {
+    }
+
     public TranslationElement getMsgIdElement();
 
     public void setMsgIdElement(TranslationElement element);
@@ -34,6 +51,20 @@ public interface TranslationEntry {
 
     public void addMsgIdEntry(String msgIdEntry);
     
+    default public TranslationElement getMsgIdPluralElement() {
+        return null;
+    }
+
+    default public void setMsgIdPluralElement(TranslationElement msgIdPluralElement) {
+    }
+
+    default public List<TranslationElement> getMsgStrElements() {
+        return null;
+    }
+
+    default public void setMsgStrElements(List<TranslationElement> elements) {
+    }
+    
     public TranslationElement getMsgStrElement();
 
     public void setMsgStrElement(TranslationElement element);
@@ -43,4 +74,34 @@ public interface TranslationEntry {
     public void setMsgStr(List<String> msgStr);
 
     public void addMsgStrEntry(String msgStrEntry);
+
+    default List<String> getObsoleteEntries() {
+        return null;
+    }
+
+    default void setObsoleteEntries(List<String> obsoleteEntries) {
+    }
+
+    default  void addObsoleteEntry(String obsoleteEntry) {
+    }
+
+    default boolean isPlural() {
+        return false;
+    }
+
+    default void setPlural(boolean plural) {
+    }
+    
+    default boolean isFuzzy() {
+        return false;
+    }
+    
+    default void setFuzzy(boolean fuzzy) {
+    }
+    
+    default void addFuzzyFlag() {
+    }
+    
+    default void removeFuzzyFlag() {
+    }
 }

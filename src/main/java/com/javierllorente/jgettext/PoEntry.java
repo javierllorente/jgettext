@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author javier
  */
-public class PoEntry implements PoTranslationEntry {
+public class PoEntry implements TranslationEntry {
     private List<String> comments;
     private List<String> msgCtxt;
     private TranslationElement msgIdElement;

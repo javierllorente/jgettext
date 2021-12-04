@@ -40,7 +40,7 @@ public class PoParser implements TranslationParser {
         BLANK
     }
 
-    private final PoTranslationFile poFile;    
+    private final TranslationFile poFile;    
 
     public PoParser() {
         poFile = new PoFile();
@@ -153,7 +153,7 @@ public class PoParser implements TranslationParser {
                         break;
                     case BLANK:
                         if (header) {
-                            PoTranslationEntry entry = new PoEntry();
+                            TranslationEntry entry = new PoEntry();
                             entry.setComments(comments);
 
                             cleanFirstLineBreak(msgIdElement);
@@ -170,7 +170,7 @@ public class PoParser implements TranslationParser {
                             msgIdFound = false;
                             msgStrFound = false;
                         } else if (msgIdFound && msgStrFound) {
-                            PoTranslationEntry entry = new PoEntry();
+                            TranslationEntry entry = new PoEntry();
                             if (commentFound) {
                                 entry.setComments(comments); 
                                 commentFound = false;
@@ -212,7 +212,7 @@ public class PoParser implements TranslationParser {
                             msgIdFound = false;
                             msgStrFound = false;
                         } else if (obsoleteFound) {
-                            PoTranslationEntry entry = new PoEntry(true);
+                            TranslationEntry entry = new PoEntry(true);
                             entry.setObsoleteEntries(obsoleteEntries);
                             poFile.addObsoleteEntry(entry);
                             obsoleteFound = false;
