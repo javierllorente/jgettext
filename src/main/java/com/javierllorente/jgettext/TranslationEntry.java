@@ -24,21 +24,21 @@ import java.util.List;
  */
 public interface TranslationEntry {
 
-    default public List<String> getComments() {
+    default List<String> getComments() {
         return null;
     }
 
-    default public void setComments(List<String> comments) {
+    default void setComments(List<String> comments) {
     }
 
-    default public void addComment(String comment) {
+    default void addComment(String comment) {
     }
 
-    default public List<String> getMsgCtxt() {
+    default List<String> getMsgCtxt() {
         return null;
     }
 
-    default public void setMsgCtxt(List<String> msgCtxt) {
+    default void setMsgCtxt(List<String> msgCtxt) {
     }
 
     public TranslationElement getMsgIdElement();
@@ -51,18 +51,18 @@ public interface TranslationEntry {
 
     public void addMsgIdEntry(String msgIdEntry);
     
-    default public TranslationElement getMsgIdPluralElement() {
+    default TranslationElement getMsgIdPluralElement() {
         return null;
     }
 
-    default public void setMsgIdPluralElement(TranslationElement msgIdPluralElement) {
+    default void setMsgIdPluralElement(TranslationElement msgIdPluralElement) {
     }
 
-    default public List<TranslationElement> getMsgStrElements() {
+    default List<TranslationElement> getMsgStrElements() {
         return null;
     }
 
-    default public void setMsgStrElements(List<TranslationElement> elements) {
+    default void setMsgStrElements(List<TranslationElement> elements) {
     }
     
     public TranslationElement getMsgStrElement();
@@ -82,7 +82,7 @@ public interface TranslationEntry {
     default void setObsoleteEntries(List<String> obsoleteEntries) {
     }
 
-    default  void addObsoleteEntry(String obsoleteEntry) {
+    default void addObsoleteEntry(String obsoleteEntry) {
     }
 
     default boolean isPlural() {
