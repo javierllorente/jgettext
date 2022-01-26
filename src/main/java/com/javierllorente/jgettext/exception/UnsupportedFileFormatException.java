@@ -16,13 +16,20 @@
  */
 package com.javierllorente.jgettext.exception;
 
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
+
 /**
  *
  * @author javier
  */
 public class UnsupportedFileFormatException extends RuntimeException {
 
+    private static final String BUNDLE_BASE_NAME = "com.javierllorente.jgettext.i18n.Bundle";
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME);
+
     public UnsupportedFileFormatException(String fileFormat) {
-        super(fileFormat.toUpperCase() + " file format not supported");
-    }    
+        super(MessageFormat.format(bundle.getString("unsupported_file_format {0}"), 
+                fileFormat.toUpperCase()));
+    }
 }
