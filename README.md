@@ -3,25 +3,25 @@ A Java-based gettext library
 
 It currently supports the PO and JSON translation formats.
 
-API overview
-- TranslationParserFactory
-- TranslationParser
-- TranslationFile
-    - TranslationEntry: header
-    - TranslationEntry: obsolete entries
-    - TranslationEntry: entries
+### API overview
+- `TranslationParserFactory`
+- `TranslationParser`
+- `TranslationFile`
+    - `TranslationEntry`: header
+    - `TranslationEntry`: obsolete entries
+    - `TranslationEntry`: entries
         - comments
         - msgctxt
         - obsolete lines
         - plural
         - fuzzy
-        - TranslationElement: msgid
+        - `TranslationElement`: msgid
             - lines: text
             - tag: msgid
-        - TranslationElement: msgstr
+        - `TranslationElement`: msgstr
             - lines: text
             - tag: msgstr
-        - TranslationElement: msgid_plural
-        - TranslationElement: msgstr (plural)
+        - `TranslationElement`: msgid_plural
+        - `TranslationElement`: msgstr (plural)
 
 Copyright (C) 2020-2022 Javier Llorente javier@opensuse.org
