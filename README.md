@@ -24,4 +24,10 @@ It currently supports the PO and JSON translation formats.
         - `TranslationElement`: msgid_plural
         - `TranslationElement`: msgstr (plural)
 
+### Dependencies
+- jakarta.json-api
+- jakarta.json
+
+
+
 Copyright (C) 2020-2022 Javier Llorente javier@opensuse.org
