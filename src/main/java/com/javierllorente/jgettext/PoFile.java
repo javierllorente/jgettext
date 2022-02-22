@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020, 2021 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2020-2022 Javier Llorente <javier@opensuse.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@ import java.util.List;
  * @author javier
  */
 public class PoFile implements TranslationFile {
-    private List<TranslationEntry> header;
-    private List<TranslationEntry> entries;
+    private final List<TranslationEntry> header;
+    private final List<TranslationEntry> entries;
     private List<TranslationEntry> obsoleteEntries;
 
     public PoFile() {
