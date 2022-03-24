@@ -5,6 +5,8 @@
     <artifactId>jgettext</artifactId>
     <version>0.9.9</version>
     <packaging>jar</packaging>
+    <name>jgettext</name>
+    <description>A Java-based gettext library</description>
     <developers>
         <developer>
             <name>Javier Llorente</name>
