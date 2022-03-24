@@ -27,7 +27,3 @@ It currently supports the PO and JSON translation formats.
 ### Dependencies
 - jakarta.json-api
 - jakarta.json
-
-
-
-Copyright (C) 2020-2022 Javier Llorente javier@opensuse.org
