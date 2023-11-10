@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Javier Llorente <javier@opensuse.org>
+ * Copyright (C) 2021-2023 Javier Llorente <javier@opensuse.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,10 @@ public class ParserFactory implements TranslationParserFactory {
         
         if (fileFormat.equalsIgnoreCase("po")) {
             return new PoParser();
-        } else if(fileFormat.equalsIgnoreCase("json")) {
+        } else if (fileFormat.equalsIgnoreCase("json")) {
             return new JsonParser();
+        } else if (fileFormat.equalsIgnoreCase("yaml")) {
+            return new YamlParser();
         } else {
             throw new UnsupportedFileFormatException(fileFormat);
         }
